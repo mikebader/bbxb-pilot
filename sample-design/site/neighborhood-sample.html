@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Neighborhood Sample | Baltimore Block-by-Block Pilot Sample Selection</title>
+  <meta name="description" content="2 Neighborhood Sample | Baltimore Block-by-Block Pilot Sample Selection" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Neighborhood Sample | Baltimore Block-by-Block Pilot Sample Selection" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Neighborhood Sample | Baltimore Block-by-Block Pilot Sample Selection" />
+  
+  
+  
+
+<meta name="author" content="Mike Bader" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="sample-of-street-locations-for-routing.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.1/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="chapter" data-level="2" data-path="neighborhood-sample.html"><a href="neighborhood-sample.html"><i class="fa fa-check"></i><b>2</b> Neighborhood Sample</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="neighborhood-sample.html"><a href="neighborhood-sample.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
+<li class="chapter" data-level="2.2" data-path="neighborhood-sample.html"><a href="neighborhood-sample.html#univariate-distributions"><i class="fa fa-check"></i><b>2.2</b> Univariate Distributions</a></li>
+<li class="chapter" data-level="2.3" data-path="neighborhood-sample.html"><a href="neighborhood-sample.html#bivariatetrivariate-relationships"><i class="fa fa-check"></i><b>2.3</b> Bivariate/Trivariate Relationships</a></li>
+<li class="chapter" data-level="2.4" data-path="neighborhood-sample.html"><a href="neighborhood-sample.html#map-distributions"><i class="fa fa-check"></i><b>2.4</b> Map Distributions</a></li>
+<li class="chapter" data-level="2.5" data-path="neighborhood-sample.html"><a href="neighborhood-sample.html#proposed-sample-neighborhoods"><i class="fa fa-check"></i><b>2.5</b> Proposed Sample Neighborhoods</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="neighborhood-sample.html"><a href="neighborhood-sample.html#reference-maps"><i class="fa fa-check"></i><b>2.5.1</b> Reference Maps</a></li>
+<li class="chapter" data-level="2.5.2" data-path="neighborhood-sample.html"><a href="neighborhood-sample.html#raceethnicity"><i class="fa fa-check"></i><b>2.5.2</b> Race/Ethnicity</a></li>
+<li class="chapter" data-level="2.5.3" data-path="neighborhood-sample.html"><a href="neighborhood-sample.html#poverty"><i class="fa fa-check"></i><b>2.5.3</b> Poverty</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="sample-of-street-locations-for-routing.html"><a href="sample-of-street-locations-for-routing.html"><i class="fa fa-check"></i><b>3</b> Sample of Street Locations for Routing</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="sample-of-street-locations-for-routing.html"><a href="sample-of-street-locations-for-routing.html#overview-1"><i class="fa fa-check"></i><b>3.1</b> Overview</a></li>
+<li class="chapter" data-level="3.2" data-path="sample-of-street-locations-for-routing.html"><a href="sample-of-street-locations-for-routing.html#obtain-road-data"><i class="fa fa-check"></i><b>3.2</b> Obtain Road Data</a></li>
+<li class="chapter" data-level="3.3" data-path="sample-of-street-locations-for-routing.html"><a href="sample-of-street-locations-for-routing.html#select-primarysecondary-roads-in-sample-regions"><i class="fa fa-check"></i><b>3.3</b> Select Primary/Secondary Roads in Sample Regions</a></li>
+<li class="chapter" data-level="3.4" data-path="sample-of-street-locations-for-routing.html"><a href="sample-of-street-locations-for-routing.html#sample-streets-within-14-mile-of-two-random-points-on-major-streets"><i class="fa fa-check"></i><b>3.4</b> Sample Streets within 1/4 Mile of Two Random Points on Major Streets</a></li>
+<li class="chapter" data-level="3.5" data-path="sample-of-street-locations-for-routing.html"><a href="sample-of-street-locations-for-routing.html#combine-and-save-sample-segments-and-coordinates"><i class="fa fa-check"></i><b>3.5</b> Combine and Save Sample Segments and Coordinates</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Baltimore Block-by-Block Pilot Sample Selection</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="neighborhood-sample" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Neighborhood Sample<a href="neighborhood-sample.html#neighborhood-sample" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="data" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Data<a href="neighborhood-sample.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Data come from two sources. The first are variables downloaded from various city sources for the number of vacant buildings, the number of 311 requests for street repairs, and the median (?) date of housing construction. These variables are saved in the CSV file <code>data/potholes-vacants-yearbuilt.csv</code>.</p>
+<p>The last variable is the number of housing units. This variable comes from table <code>B25001</code> in the American Community Survey. That data is obtained using the <code>get_acs()</code> function of the <code>tidycensus</code> library, which also downloads geography to be used for mapping values.</p>
+<p>I merge the two tables and then create a variable that calculates the ratio of vacant buildings to housing units in the tract (this is a rough adjustment for number of buildings).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="neighborhood-sample.html#cb4-1" tabindex="-1"></a><span class="do">## Data from City Sources</span></span>
+<span id="cb4-2"><a href="neighborhood-sample.html#cb4-2" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/potholes-vacants-yearbuilt.csv&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;cciii&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="neighborhood-sample.html#cb4-3" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb4-4"><a href="neighborhood-sample.html#cb4-4" tabindex="-1"></a>        </span>
+<span id="cb4-5"><a href="neighborhood-sample.html#cb4-5" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="neighborhood-sample.html#cb4-6" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">GEOID =</span> tract) </span>
+<span id="cb4-7"><a href="neighborhood-sample.html#cb4-7" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="neighborhood-sample.html#cb4-8" tabindex="-1"></a><span class="do">## ACS Data (including geography)</span></span>
+<span id="cb4-9"><a href="neighborhood-sample.html#cb4-9" tabindex="-1"></a>hu <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb4-10"><a href="neighborhood-sample.html#cb4-10" tabindex="-1"></a>    <span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>,</span>
+<span id="cb4-11"><a href="neighborhood-sample.html#cb4-11" tabindex="-1"></a>    <span class="at">variables =</span> <span class="st">&quot;B25001_001&quot;</span>,</span>
+<span id="cb4-12"><a href="neighborhood-sample.html#cb4-12" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">&quot;MD&quot;</span>,</span>
+<span id="cb4-13"><a href="neighborhood-sample.html#cb4-13" tabindex="-1"></a>    <span class="at">county =</span> <span class="st">&quot;510&quot;</span>,</span>
+<span id="cb4-14"><a href="neighborhood-sample.html#cb4-14" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb4-15"><a href="neighborhood-sample.html#cb4-15" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-16"><a href="neighborhood-sample.html#cb4-16" tabindex="-1"></a>    sf<span class="sc">::</span><span class="fu">st_transform</span>(<span class="at">crs =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="st">&quot;EPSG:6487&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-17"><a href="neighborhood-sample.html#cb4-17" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">hu =</span> estimate) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-18"><a href="neighborhood-sample.html#cb4-18" tabindex="-1"></a>    <span class="fu">select</span>(GEOID, hu) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-19"><a href="neighborhood-sample.html#cb4-19" tabindex="-1"></a>    <span class="fu">left_join</span>(dta, <span class="at">by =</span> <span class="st">&quot;GEOID&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-20"><a href="neighborhood-sample.html#cb4-20" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb4-21"><a href="neighborhood-sample.html#cb4-21" tabindex="-1"></a>        <span class="at">lnvacant =</span> <span class="fu">log</span>(vacant <span class="sc">+</span> <span class="dv">1</span>),</span>
+<span id="cb4-22"><a href="neighborhood-sample.html#cb4-22" tabindex="-1"></a>        <span class="at">vacrat =</span> vacant <span class="sc">/</span> hu,</span>
+<span id="cb4-23"><a href="neighborhood-sample.html#cb4-23" tabindex="-1"></a>        <span class="at">lnvacrat =</span> <span class="fu">if_else</span>(hu <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="fu">log</span>((vacant <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> hu), <span class="cn">NA_real_</span>)</span>
+<span id="cb4-24"><a href="neighborhood-sample.html#cb4-24" tabindex="-1"></a>    )</span></code></pre></div>
+</div>
+<div id="univariate-distributions" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Univariate Distributions<a href="neighborhood-sample.html#univariate-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Density the univariate distributions of the three variables we are examining for this analysis.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="neighborhood-sample.html#cb5-1" tabindex="-1"></a><span class="do">## Specify variables and labels</span></span>
+<span id="cb5-2"><a href="neighborhood-sample.html#cb5-2" tabindex="-1"></a>varnms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;vacrat&quot;</span>, <span class="st">&quot;streetrepairs&quot;</span>, <span class="st">&quot;yearblt&quot;</span>)</span>
+<span id="cb5-3"><a href="neighborhood-sample.html#cb5-3" tabindex="-1"></a>varlab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Vacant ratio&quot;</span>, <span class="st">&quot;Street repair requests&quot;</span>, <span class="st">&quot;Year built&quot;</span>)</span>
+<span id="cb5-4"><a href="neighborhood-sample.html#cb5-4" tabindex="-1"></a><span class="fu">names</span>(varlab) <span class="ot">&lt;-</span> varnms</span>
+<span id="cb5-5"><a href="neighborhood-sample.html#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="neighborhood-sample.html#cb5-6" tabindex="-1"></a><span class="do">## Set unique limits and breaks for plots (also used in maps below)</span></span>
+<span id="cb5-7"><a href="neighborhood-sample.html#cb5-7" tabindex="-1"></a>varlims <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb5-8"><a href="neighborhood-sample.html#cb5-8" tabindex="-1"></a>    <span class="at">vacrat =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.55</span>),</span>
+<span id="cb5-9"><a href="neighborhood-sample.html#cb5-9" tabindex="-1"></a>    <span class="at">streetrepairs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3100</span>),</span>
+<span id="cb5-10"><a href="neighborhood-sample.html#cb5-10" tabindex="-1"></a>    <span class="at">yearblt =</span> <span class="fu">c</span>(<span class="dv">1890</span>, <span class="dv">2010</span>)</span>
+<span id="cb5-11"><a href="neighborhood-sample.html#cb5-11" tabindex="-1"></a>)</span>
+<span id="cb5-12"><a href="neighborhood-sample.html#cb5-12" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="neighborhood-sample.html#cb5-13" tabindex="-1"></a>varbrks <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb5-14"><a href="neighborhood-sample.html#cb5-14" tabindex="-1"></a>    <span class="at">vacrat =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.55</span>, <span class="fl">0.1</span>),</span>
+<span id="cb5-15"><a href="neighborhood-sample.html#cb5-15" tabindex="-1"></a>    <span class="at">streetrepairs =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">3000</span>, <span class="dv">1000</span>),</span>
+<span id="cb5-16"><a href="neighborhood-sample.html#cb5-16" tabindex="-1"></a>    <span class="at">yearblt =</span> <span class="fu">seq</span>(<span class="dv">1890</span>, <span class="dv">2010</span>, <span class="dv">30</span>)</span>
+<span id="cb5-17"><a href="neighborhood-sample.html#cb5-17" tabindex="-1"></a>)</span>
+<span id="cb5-18"><a href="neighborhood-sample.html#cb5-18" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="neighborhood-sample.html#cb5-19" tabindex="-1"></a>varlabs <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb5-20"><a href="neighborhood-sample.html#cb5-20" tabindex="-1"></a>    <span class="at">vacrat =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.1f&quot;</span>, varbrks[[<span class="dv">1</span>]]), </span>
+<span id="cb5-21"><a href="neighborhood-sample.html#cb5-21" tabindex="-1"></a>    <span class="at">streetrepairs =</span> <span class="fu">as.character</span>(varbrks[[<span class="dv">2</span>]]),</span>
+<span id="cb5-22"><a href="neighborhood-sample.html#cb5-22" tabindex="-1"></a>    <span class="at">yearblt =</span> <span class="fu">as.character</span>(varbrks[[<span class="dv">3</span>]])</span>
+<span id="cb5-23"><a href="neighborhood-sample.html#cb5-23" tabindex="-1"></a>)</span>
+<span id="cb5-24"><a href="neighborhood-sample.html#cb5-24" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="neighborhood-sample.html#cb5-25" tabindex="-1"></a><span class="do">## Function to create univariate density plot</span></span>
+<span id="cb5-26"><a href="neighborhood-sample.html#cb5-26" tabindex="-1"></a>densplot <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
+<span id="cb5-27"><a href="neighborhood-sample.html#cb5-27" tabindex="-1"></a>    <span class="fu">ggplot</span>(hu, <span class="fu">aes</span>(<span class="at">x =</span> .data[[v]])) <span class="sc">+</span></span>
+<span id="cb5-28"><a href="neighborhood-sample.html#cb5-28" tabindex="-1"></a>        <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb5-29"><a href="neighborhood-sample.html#cb5-29" tabindex="-1"></a>        <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb5-30"><a href="neighborhood-sample.html#cb5-30" tabindex="-1"></a>            <span class="at">limits =</span> varlims[[v]], <span class="at">breaks =</span> varbrks[[v]]</span>
+<span id="cb5-31"><a href="neighborhood-sample.html#cb5-31" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb5-32"><a href="neighborhood-sample.html#cb5-32" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb5-33"><a href="neighborhood-sample.html#cb5-33" tabindex="-1"></a>}</span>
+<span id="cb5-34"><a href="neighborhood-sample.html#cb5-34" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="neighborhood-sample.html#cb5-35" tabindex="-1"></a><span class="do">## Plot density plots into row</span></span>
+<span id="cb5-36"><a href="neighborhood-sample.html#cb5-36" tabindex="-1"></a>d_plts <span class="ot">&lt;-</span> <span class="fu">map</span>(varnms, densplot)</span>
+<span id="cb5-37"><a href="neighborhood-sample.html#cb5-37" tabindex="-1"></a>d_pltrow <span class="ot">&lt;-</span> <span class="fu">ggarrange</span>(d_plts[[<span class="dv">1</span>]], d_plts[[<span class="dv">2</span>]], d_plts[[<span class="dv">3</span>]], <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 2 rows containing non-finite outside the scale range
+## (`stat_density()`).</code></pre>
+<pre><code>## Warning: Removed 1 row containing non-finite outside the scale range (`stat_density()`).
+## Removed 1 row containing non-finite outside the scale range (`stat_density()`).</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="neighborhood-sample.html#cb8-1" tabindex="-1"></a>d_pltrow</span></code></pre></div>
+<p><img src="_bbxb-pilot-sample-design_files/figure-html/univariate-1.png" width="672" /></p>
+</div>
+<div id="bivariatetrivariate-relationships" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Bivariate/Trivariate Relationships<a href="neighborhood-sample.html#bivariatetrivariate-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Calculate the correlations between the variables.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="neighborhood-sample.html#cb9-1" tabindex="-1"></a>hu <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="neighborhood-sample.html#cb9-2" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="neighborhood-sample.html#cb9-3" tabindex="-1"></a>    <span class="fu">select</span>(lnvacrat, streetrepairs, yearblt) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="neighborhood-sample.html#cb9-4" tabindex="-1"></a>    <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="neighborhood-sample.html#cb9-5" tabindex="-1"></a>    <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">&quot;pairwise&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-6"><a href="neighborhood-sample.html#cb9-6" tabindex="-1"></a>    <span class="fu">round</span>(<span class="dv">2</span>) </span></code></pre></div>
+<pre><code>##               lnvacrat streetrepairs yearblt
+## lnvacrat          1.00         -0.24   -0.34
+## streetrepairs    -0.24          1.00    0.21
+## yearblt          -0.34          0.21    1.00</code></pre>
+<p>Plot bivariate scatterplots of the three variables and a correlation matrix.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="neighborhood-sample.html#cb11-1" tabindex="-1"></a>sct1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(hu, <span class="fu">aes</span>(<span class="at">x =</span> streetrepairs, <span class="at">y =</span> yearblt)) <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="neighborhood-sample.html#cb11-2" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-3"><a href="neighborhood-sample.html#cb11-3" tabindex="-1"></a>sct2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(hu, <span class="fu">aes</span>(<span class="at">x =</span> streetrepairs, <span class="at">y =</span> lnvacrat)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="neighborhood-sample.html#cb11-4" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-5"><a href="neighborhood-sample.html#cb11-5" tabindex="-1"></a>sct3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(hu, <span class="fu">aes</span>(<span class="at">x =</span> yearblt, <span class="at">y =</span> lnvacrat)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="neighborhood-sample.html#cb11-6" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-7"><a href="neighborhood-sample.html#cb11-7" tabindex="-1"></a>ttl <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Bivariate relationships among variables&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="neighborhood-sample.html#cb11-8" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb11-9"><a href="neighborhood-sample.html#cb11-9" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="neighborhood-sample.html#cb11-10" tabindex="-1"></a>cor_plt <span class="ot">&lt;-</span> <span class="fu">ggarrange</span>(</span>
+<span id="cb11-11"><a href="neighborhood-sample.html#cb11-11" tabindex="-1"></a>    <span class="fu">ggarrange</span>(ttl),</span>
+<span id="cb11-12"><a href="neighborhood-sample.html#cb11-12" tabindex="-1"></a>    <span class="fu">ggarrange</span>(sct1, <span class="cn">NULL</span>, sct2, sct3),</span>
+<span id="cb11-13"><a href="neighborhood-sample.html#cb11-13" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">heights =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">9</span>)</span>
+<span id="cb11-14"><a href="neighborhood-sample.html#cb11-14" tabindex="-1"></a>)</span>
+<span id="cb11-15"><a href="neighborhood-sample.html#cb11-15" tabindex="-1"></a>cor_plt</span></code></pre></div>
+<p><img src="_bbxb-pilot-sample-design_files/figure-html/bivariate-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="neighborhood-sample.html#cb12-1" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&#39;out/img/scatterplots.pdf&#39;</span>, <span class="at">width =</span> <span class="fl">7.25</span>, <span class="at">height =</span> <span class="fl">5.5</span>, <span class="at">units =</span> <span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+</div>
+<div id="map-distributions" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Map Distributions<a href="neighborhood-sample.html#map-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Below, we plot values of the three variables onto maps of Baltimore. The white boundaries represent the Census public-use microdata areas (PUMAs). The figure below is saved to <code>out/img/variable-maps-densities.pdf</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="neighborhood-sample.html#cb13-1" tabindex="-1"></a><span class="do">## Download PUMA geography</span></span>
+<span id="cb13-2"><a href="neighborhood-sample.html#cb13-2" tabindex="-1"></a>pumas <span class="ot">&lt;-</span> <span class="fu">pumas</span>(<span class="at">state =</span> <span class="st">&quot;24&quot;</span>, <span class="at">year =</span> <span class="dv">2022</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="neighborhood-sample.html#cb13-3" tabindex="-1"></a>    <span class="fu">filter</span>(PUMACE20 <span class="sc">%in%</span> <span class="fu">paste0</span>(<span class="st">&quot;0080&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span>
+<span id="cb13-4"><a href="neighborhood-sample.html#cb13-4" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="neighborhood-sample.html#cb13-5" tabindex="-1"></a><span class="do">## Download and crop Chesapeake Bay geography</span></span>
+<span id="cb13-6"><a href="neighborhood-sample.html#cb13-6" tabindex="-1"></a>f_chpk <span class="ot">&lt;-</span> <span class="st">&quot;data/Chesapeake_Bay_92_Segments/Chesapeake_Bay_92_Segments.shp&quot;</span></span>
+<span id="cb13-7"><a href="neighborhood-sample.html#cb13-7" tabindex="-1"></a>dta_chpk <span class="ot">&lt;-</span> <span class="fu">st_read</span>(f_chpk) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-8"><a href="neighborhood-sample.html#cb13-8" tabindex="-1"></a>    sf<span class="sc">::</span><span class="fu">st_transform</span>(<span class="at">crs =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="st">&quot;EPSG:6487&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-9"><a href="neighborhood-sample.html#cb13-9" tabindex="-1"></a>    <span class="fu">st_crop</span>(<span class="fu">st_bbox</span>(hu))</span></code></pre></div>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout
+## all geometries</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="neighborhood-sample.html#cb15-1" tabindex="-1"></a>bmplot <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
+<span id="cb15-2"><a href="neighborhood-sample.html#cb15-2" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a href="neighborhood-sample.html#cb15-3" tabindex="-1"></a>        <span class="fu">geom_sf</span>(<span class="at">data =</span> hu, <span class="fu">aes</span>(<span class="at">fill =</span> .data[[v]])) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="neighborhood-sample.html#cb15-4" tabindex="-1"></a>        <span class="fu">geom_sf</span>(<span class="at">data =</span> dta_chpk, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;#dddddd&quot;</span>, <span class="at">linewidth =</span> .<span class="dv">35</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="neighborhood-sample.html#cb15-5" tabindex="-1"></a>        <span class="fu">geom_sf</span>(<span class="at">data =</span> pumas, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">linewidth =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="neighborhood-sample.html#cb15-6" tabindex="-1"></a>        <span class="fu">scale_fill_viridis_c</span>(</span>
+<span id="cb15-7"><a href="neighborhood-sample.html#cb15-7" tabindex="-1"></a>            <span class="at">limits =</span> varlims[[v]], <span class="at">breaks =</span> varbrks[[v]], </span>
+<span id="cb15-8"><a href="neighborhood-sample.html#cb15-8" tabindex="-1"></a>            <span class="at">labels =</span> varlabs[[v]]</span>
+<span id="cb15-9"><a href="neighborhood-sample.html#cb15-9" tabindex="-1"></a>        )<span class="sc">+</span></span>
+<span id="cb15-10"><a href="neighborhood-sample.html#cb15-10" tabindex="-1"></a>        <span class="fu">labs</span>(</span>
+<span id="cb15-11"><a href="neighborhood-sample.html#cb15-11" tabindex="-1"></a>            <span class="at">title =</span> varlab[v],</span>
+<span id="cb15-12"><a href="neighborhood-sample.html#cb15-12" tabindex="-1"></a>            <span class="at">fill =</span> <span class="cn">NULL</span></span>
+<span id="cb15-13"><a href="neighborhood-sample.html#cb15-13" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb15-14"><a href="neighborhood-sample.html#cb15-14" tabindex="-1"></a>        theme_map</span>
+<span id="cb15-15"><a href="neighborhood-sample.html#cb15-15" tabindex="-1"></a>}</span>
+<span id="cb15-16"><a href="neighborhood-sample.html#cb15-16" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="neighborhood-sample.html#cb15-17" tabindex="-1"></a>bm_plts <span class="ot">&lt;-</span> <span class="fu">map</span>(varnms, bmplot)</span>
+<span id="cb15-18"><a href="neighborhood-sample.html#cb15-18" tabindex="-1"></a>ttl <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distributions of built environment variables&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-19"><a href="neighborhood-sample.html#cb15-19" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb15-20"><a href="neighborhood-sample.html#cb15-20" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="neighborhood-sample.html#cb15-21" tabindex="-1"></a>d_plts_c <span class="ot">&lt;-</span> <span class="fu">map</span>(d_plts, <span class="cf">function</span>(p) {</span>
+<span id="cb15-22"><a href="neighborhood-sample.html#cb15-22" tabindex="-1"></a>    p <span class="sc">+</span> <span class="fu">theme</span>(</span>
+<span id="cb15-23"><a href="neighborhood-sample.html#cb15-23" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb15-24"><a href="neighborhood-sample.html#cb15-24" tabindex="-1"></a>    )</span>
+<span id="cb15-25"><a href="neighborhood-sample.html#cb15-25" tabindex="-1"></a>})</span>
+<span id="cb15-26"><a href="neighborhood-sample.html#cb15-26" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="neighborhood-sample.html#cb15-27" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
+<span id="cb15-28"><a href="neighborhood-sample.html#cb15-28" tabindex="-1"></a>    ttl,</span>
+<span id="cb15-29"><a href="neighborhood-sample.html#cb15-29" tabindex="-1"></a>    <span class="fu">ggarrange</span>(bm_plts[[<span class="dv">1</span>]], bm_plts[[<span class="dv">2</span>]], bm_plts[[<span class="dv">3</span>]], <span class="at">nrow =</span> <span class="dv">1</span>), </span>
+<span id="cb15-30"><a href="neighborhood-sample.html#cb15-30" tabindex="-1"></a>    <span class="fu">ggarrange</span>(d_plts_c[[<span class="dv">1</span>]], d_plts_c[[<span class="dv">2</span>]], d_plts_c[[<span class="dv">3</span>]], <span class="at">nrow =</span> <span class="dv">1</span>), </span>
+<span id="cb15-31"><a href="neighborhood-sample.html#cb15-31" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">heights =</span> <span class="fu">c</span>(.<span class="dv">075</span>, .<span class="dv">45</span>, .<span class="dv">15</span>)</span>
+<span id="cb15-32"><a href="neighborhood-sample.html#cb15-32" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Warning: Removed 2 rows containing non-finite outside the scale range
+## (`stat_density()`).</code></pre>
+<pre><code>## Warning: Removed 1 row containing non-finite outside the scale range (`stat_density()`).
+## Removed 1 row containing non-finite outside the scale range (`stat_density()`).</code></pre>
+<p><img src="_bbxb-pilot-sample-design_files/figure-html/maps-1.png" width="672" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="neighborhood-sample.html#cb18-1" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;out/img/variable-maps-densities.pdf&quot;</span>, <span class="at">width =</span> <span class="fl">7.25</span>, <span class="at">height =</span> <span class="fl">5.5</span>, <span class="at">units =</span> <span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+</div>
+<div id="proposed-sample-neighborhoods" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Proposed Sample Neighborhoods<a href="neighborhood-sample.html#proposed-sample-neighborhoods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Based on variation across the three different variables above (and our knowledge of the racial/ethnic and socioeconomic distributions), we may consider sampling the following neighborhoods. The neighborhood names come from <a href="https://data.baltimorecity.gov/datasets/47f7b87abafa487595e1f837135b0ed1/explore">spatial data</a> maintained by Baltimore City official list.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="neighborhood-sample.html#cb19-1" tabindex="-1"></a>proposed_nhds <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb19-2"><a href="neighborhood-sample.html#cb19-2" tabindex="-1"></a>    <span class="co"># Central Baltimore</span></span>
+<span id="cb19-3"><a href="neighborhood-sample.html#cb19-3" tabindex="-1"></a>    <span class="at">central =</span> <span class="fu">c</span>(</span>
+<span id="cb19-4"><a href="neighborhood-sample.html#cb19-4" tabindex="-1"></a>    <span class="st">&quot;Old Goucher&quot;</span>, <span class="st">&quot;Barclay&quot;</span>, <span class="st">&quot;East Baltimore Midway&quot;</span>, <span class="st">&quot;Broadway East&quot;</span>,</span>
+<span id="cb19-5"><a href="neighborhood-sample.html#cb19-5" tabindex="-1"></a>    <span class="st">&quot;Berea&quot;</span></span>
+<span id="cb19-6"><a href="neighborhood-sample.html#cb19-6" tabindex="-1"></a>    ), </span>
+<span id="cb19-7"><a href="neighborhood-sample.html#cb19-7" tabindex="-1"></a>    <span class="co"># Northwest</span></span>
+<span id="cb19-8"><a href="neighborhood-sample.html#cb19-8" tabindex="-1"></a>    <span class="at">northwest =</span> <span class="fu">c</span>(</span>
+<span id="cb19-9"><a href="neighborhood-sample.html#cb19-9" tabindex="-1"></a>    <span class="st">&quot;Fallstaff&quot;</span>, <span class="st">&quot;Cross Country&quot;</span>, <span class="st">&quot;Glen&quot;</span>, <span class="st">&quot;Cheswolde&quot;</span></span>
+<span id="cb19-10"><a href="neighborhood-sample.html#cb19-10" tabindex="-1"></a>    ),</span>
+<span id="cb19-11"><a href="neighborhood-sample.html#cb19-11" tabindex="-1"></a>    <span class="co"># North Central</span></span>
+<span id="cb19-12"><a href="neighborhood-sample.html#cb19-12" tabindex="-1"></a>    <span class="at">north_central =</span> <span class="fu">c</span>(</span>
+<span id="cb19-13"><a href="neighborhood-sample.html#cb19-13" tabindex="-1"></a>    <span class="st">&quot;North Roland Park/Poplar Hill&quot;</span>, <span class="st">&quot;The Orchards&quot;</span>, <span class="st">&quot;Bellona-Gittings&quot;</span>, </span>
+<span id="cb19-14"><a href="neighborhood-sample.html#cb19-14" tabindex="-1"></a>    <span class="st">&quot;Cedarcroft&quot;</span>, <span class="st">&quot;Rosebank&quot;</span>, <span class="st">&quot;Lake Evesham&quot;</span>, <span class="st">&quot;Homeland&quot;</span></span>
+<span id="cb19-15"><a href="neighborhood-sample.html#cb19-15" tabindex="-1"></a>    ),</span>
+<span id="cb19-16"><a href="neighborhood-sample.html#cb19-16" tabindex="-1"></a>    <span class="co"># West</span></span>
+<span id="cb19-17"><a href="neighborhood-sample.html#cb19-17" tabindex="-1"></a>    <span class="at">west =</span> <span class="fu">c</span>(</span>
+<span id="cb19-18"><a href="neighborhood-sample.html#cb19-18" tabindex="-1"></a>    <span class="st">&quot;Carrollton Ridge&quot;</span>, <span class="st">&quot;Boyd-Booth&quot;</span>, <span class="st">&quot;Penrose/Fayette Street Outreach&quot;</span>,</span>
+<span id="cb19-19"><a href="neighborhood-sample.html#cb19-19" tabindex="-1"></a>    <span class="st">&quot;Evergreen Lawn&quot;</span>, <span class="st">&quot;Bridgeview/Greenlawn&quot;</span>, <span class="st">&quot;Rosemont Homeowners/Tenants&quot;</span>,</span>
+<span id="cb19-20"><a href="neighborhood-sample.html#cb19-20" tabindex="-1"></a>    <span class="st">&quot;Midtown-Edmondson&quot;</span></span>
+<span id="cb19-21"><a href="neighborhood-sample.html#cb19-21" tabindex="-1"></a>    ),</span>
+<span id="cb19-22"><a href="neighborhood-sample.html#cb19-22" tabindex="-1"></a>    <span class="co"># South</span></span>
+<span id="cb19-23"><a href="neighborhood-sample.html#cb19-23" tabindex="-1"></a>    <span class="at">south =</span> <span class="fu">c</span>(</span>
+<span id="cb19-24"><a href="neighborhood-sample.html#cb19-24" tabindex="-1"></a>    <span class="st">&quot;Cherry Hill&quot;</span>, <span class="st">&quot;Brooklyn&quot;</span></span>
+<span id="cb19-25"><a href="neighborhood-sample.html#cb19-25" tabindex="-1"></a>    ),</span>
+<span id="cb19-26"><a href="neighborhood-sample.html#cb19-26" tabindex="-1"></a>    <span class="co"># East</span></span>
+<span id="cb19-27"><a href="neighborhood-sample.html#cb19-27" tabindex="-1"></a>    <span class="at">east =</span> <span class="fu">c</span>(</span>
+<span id="cb19-28"><a href="neighborhood-sample.html#cb19-28" tabindex="-1"></a>    <span class="st">&quot;Highlandtown&quot;</span>, <span class="st">&quot;Greektown&quot;</span>, <span class="st">&quot;Canton&quot;</span>, <span class="st">&quot;Brewers Hill&quot;</span></span>
+<span id="cb19-29"><a href="neighborhood-sample.html#cb19-29" tabindex="-1"></a>    )</span>
+<span id="cb19-30"><a href="neighborhood-sample.html#cb19-30" tabindex="-1"></a>)</span></code></pre></div>
+<p>The proposed neighborhoods are plotted in orange below. This covers variation across our three variables and some racial and socioeconomic variation. It does, however, miss much of East Baltimore (especially the Northeast). Mac and I ran an experiment a while back and covered the streets along the route <a href="https://www.strava.com/activities/9303580510">at this link</a> in one hour and fifteen minutes. Based on that, it’s possible that we can do the cluster of neighborhoods in the Northwest and in the Roland Park/Homeland area in one day, the Midtown and Old Goucher/Broadway East stretch another day, South Baltimore a third day, and have another day to do more on the East Side.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="neighborhood-sample.html#cb20-1" tabindex="-1"></a>f_nhd <span class="ot">&lt;-</span> <span class="st">&quot;data/Neighborhood/Neighborhood.shp&quot;</span></span>
+<span id="cb20-2"><a href="neighborhood-sample.html#cb20-2" tabindex="-1"></a>dta_nhd <span class="ot">&lt;-</span> <span class="fu">st_read</span>(f_nhd, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-3"><a href="neighborhood-sample.html#cb20-3" tabindex="-1"></a>dta_bal <span class="ot">&lt;-</span> dta_nhd <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="neighborhood-sample.html#cb20-4" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="neighborhood-sample.html#cb20-5" tabindex="-1"></a>  <span class="fu">st_union</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="neighborhood-sample.html#cb20-6" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">5</span>)</span>
+<span id="cb20-7"><a href="neighborhood-sample.html#cb20-7" tabindex="-1"></a>dta_pnhd <span class="ot">&lt;-</span> dta_nhd <span class="sc">%&gt;%</span> </span>
+<span id="cb20-8"><a href="neighborhood-sample.html#cb20-8" tabindex="-1"></a>    <span class="fu">filter</span>(Name <span class="sc">%in%</span> <span class="fu">unlist</span>(proposed_nhds))</span>
+<span id="cb20-9"><a href="neighborhood-sample.html#cb20-9" tabindex="-1"></a><span class="fu">nrow</span>(dta_pnhd) <span class="sc">==</span> <span class="fu">length</span>(proposed_nhds) <span class="co"># Check that all proposed neighborhoods</span></span>
+<span id="cb20-10"><a href="neighborhood-sample.html#cb20-10" tabindex="-1"></a>                                          <span class="co"># are in data</span></span>
+<span id="cb20-11"><a href="neighborhood-sample.html#cb20-11" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="neighborhood-sample.html#cb20-12" tabindex="-1"></a><span class="co"># Add proposed neighborhood to map plots</span></span>
+<span id="cb20-13"><a href="neighborhood-sample.html#cb20-13" tabindex="-1"></a>p_pnhd <span class="ot">&lt;-</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> dta_pnhd, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.65</span>) </span>
+<span id="cb20-14"><a href="neighborhood-sample.html#cb20-14" tabindex="-1"></a>p_build <span class="ot">&lt;-</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">filter</span>(dta_nhd, Name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Greenmount West&quot;</span>, <span class="st">&quot;Oliver&quot;</span>)), <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb20-15"><a href="neighborhood-sample.html#cb20-15" tabindex="-1"></a>p_parity <span class="ot">&lt;-</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">filter</span>(dta_nhd, Name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Harlem Park&quot;</span>)), <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb20-16"><a href="neighborhood-sample.html#cb20-16" tabindex="-1"></a>p_coppin <span class="ot">&lt;-</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">filter</span>(dta_nhd, <span class="fu">str_detect</span>(Name, <span class="st">&quot;Coppin&quot;</span>)), <span class="at">fill =</span> <span class="st">&quot;pink&quot;</span>)</span>
+<span id="cb20-17"><a href="neighborhood-sample.html#cb20-17" tabindex="-1"></a>bm_pnhds <span class="ot">&lt;-</span> <span class="fu">map</span>(bm_plts, <span class="cf">function</span>(p) {<span class="fu">return</span>(p <span class="sc">+</span> p_pnhd <span class="sc">+</span> p_build <span class="sc">+</span> p_parity <span class="sc">+</span> p_coppin)})</span>
+<span id="cb20-18"><a href="neighborhood-sample.html#cb20-18" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="neighborhood-sample.html#cb20-19" tabindex="-1"></a>ttl <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Proposed neighborhoods for Trimble sample&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-20"><a href="neighborhood-sample.html#cb20-20" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb20-21"><a href="neighborhood-sample.html#cb20-21" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="neighborhood-sample.html#cb20-22" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
+<span id="cb20-23"><a href="neighborhood-sample.html#cb20-23" tabindex="-1"></a>    ttl,</span>
+<span id="cb20-24"><a href="neighborhood-sample.html#cb20-24" tabindex="-1"></a>    <span class="fu">ggarrange</span>(bm_pnhds[[<span class="dv">1</span>]], bm_pnhds[[<span class="dv">2</span>]], bm_pnhds[[<span class="dv">3</span>]], <span class="at">nrow =</span> <span class="dv">1</span>), </span>
+<span id="cb20-25"><a href="neighborhood-sample.html#cb20-25" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">heights =</span> <span class="fu">c</span>(.<span class="dv">039</span>, .<span class="dv">236</span>)</span>
+<span id="cb20-26"><a href="neighborhood-sample.html#cb20-26" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="_bbxb-pilot-sample-design_files/figure-html/map-proposed-1.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="neighborhood-sample.html#cb21-1" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb21-2"><a href="neighborhood-sample.html#cb21-2" tabindex="-1"></a>    <span class="st">&quot;out/img/proposed-sample-locations.pdf&quot;</span>,</span>
+<span id="cb21-3"><a href="neighborhood-sample.html#cb21-3" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">7.25</span>, <span class="at">height =</span> <span class="fl">5.5</span>, <span class="at">units =</span> <span class="st">&quot;in&quot;</span></span>
+<span id="cb21-4"><a href="neighborhood-sample.html#cb21-4" tabindex="-1"></a>)</span></code></pre></div>
+<p>Create a dataframe containing sampled areas that dissolves neighborhood boundaries.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="neighborhood-sample.html#cb22-1" tabindex="-1"></a>pnhdlabs <span class="ot">&lt;-</span> <span class="fu">unlist</span>(proposed_nhds)</span>
+<span id="cb22-2"><a href="neighborhood-sample.html#cb22-2" tabindex="-1"></a><span class="fu">names</span>(pnhdlabs) <span class="ot">&lt;-</span> <span class="fu">str_replace</span>(<span class="fu">names</span>(pnhdlabs), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+$&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb22-3"><a href="neighborhood-sample.html#cb22-3" tabindex="-1"></a>dta_smpreg <span class="ot">&lt;-</span> dta_pnhd <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="neighborhood-sample.html#cb22-4" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb22-5"><a href="neighborhood-sample.html#cb22-5" tabindex="-1"></a>        <span class="at">region =</span> <span class="fu">fct_recode</span>(Name, <span class="sc">!!!</span>pnhdlabs)</span>
+<span id="cb22-6"><a href="neighborhood-sample.html#cb22-6" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-7"><a href="neighborhood-sample.html#cb22-7" tabindex="-1"></a>    <span class="fu">st_buffer</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="do">## Avoid slivers by buffering by 500ft. </span></span>
+<span id="cb22-8"><a href="neighborhood-sample.html#cb22-8" tabindex="-1"></a>    <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-9"><a href="neighborhood-sample.html#cb22-9" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb22-10"><a href="neighborhood-sample.html#cb22-10" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-11"><a href="neighborhood-sample.html#cb22-11" tabindex="-1"></a>    <span class="fu">st_zm</span>() </span></code></pre></div>
+<div id="reference-maps" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Reference Maps<a href="neighborhood-sample.html#reference-maps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following maps provide a reference for the race/ethnicity and poverty composition of city neighborhoods.</p>
+</div>
+<div id="raceethnicity" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Race/Ethnicity<a href="neighborhood-sample.html#raceethnicity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="neighborhood-sample.html#cb23-1" tabindex="-1"></a>dta_re <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb23-2"><a href="neighborhood-sample.html#cb23-2" tabindex="-1"></a>    <span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>,</span>
+<span id="cb23-3"><a href="neighborhood-sample.html#cb23-3" tabindex="-1"></a>    <span class="at">table =</span> <span class="st">&quot;B03002&quot;</span>,</span>
+<span id="cb23-4"><a href="neighborhood-sample.html#cb23-4" tabindex="-1"></a>    <span class="at">output =</span> <span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb23-5"><a href="neighborhood-sample.html#cb23-5" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">&quot;MD&quot;</span>,</span>
+<span id="cb23-6"><a href="neighborhood-sample.html#cb23-6" tabindex="-1"></a>    <span class="at">county =</span> <span class="st">&quot;510&quot;</span>,</span>
+<span id="cb23-7"><a href="neighborhood-sample.html#cb23-7" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb23-8"><a href="neighborhood-sample.html#cb23-8" tabindex="-1"></a>    <span class="at">cache_table =</span> <span class="cn">TRUE</span></span>
+<span id="cb23-9"><a href="neighborhood-sample.html#cb23-9" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-10"><a href="neighborhood-sample.html#cb23-10" tabindex="-1"></a>    <span class="fu">rename_with</span>(<span class="sc">~</span><span class="fu">str_replace</span>(., <span class="st">&quot;E$&quot;</span>, <span class="st">&quot;&quot;</span>))<span class="sc">%&gt;%</span> </span>
+<span id="cb23-11"><a href="neighborhood-sample.html#cb23-11" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb23-12"><a href="neighborhood-sample.html#cb23-12" tabindex="-1"></a>        <span class="at">totpop =</span> B03002_001,</span>
+<span id="cb23-13"><a href="neighborhood-sample.html#cb23-13" tabindex="-1"></a>        <span class="at">pnhw =</span> B03002_003 <span class="sc">/</span> totpop,</span>
+<span id="cb23-14"><a href="neighborhood-sample.html#cb23-14" tabindex="-1"></a>        <span class="at">pnhb =</span> B03002_004 <span class="sc">/</span> totpop,</span>
+<span id="cb23-15"><a href="neighborhood-sample.html#cb23-15" tabindex="-1"></a>        <span class="at">poth =</span> (B03002_002 <span class="sc">-</span> (B03002_003 <span class="sc">+</span> B03002_004)) <span class="sc">/</span> totpop,</span>
+<span id="cb23-16"><a href="neighborhood-sample.html#cb23-16" tabindex="-1"></a>        <span class="at">phsp =</span> B03002_012 <span class="sc">/</span> totpop</span>
+<span id="cb23-17"><a href="neighborhood-sample.html#cb23-17" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-18"><a href="neighborhood-sample.html#cb23-18" tabindex="-1"></a>    sf<span class="sc">::</span><span class="fu">st_transform</span>(<span class="at">crs =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="st">&quot;EPSG:6487&quot;</span>))</span>
+<span id="cb23-19"><a href="neighborhood-sample.html#cb23-19" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="neighborhood-sample.html#cb23-20" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="neighborhood-sample.html#cb23-21" tabindex="-1"></a>plot_re <span class="ot">&lt;-</span> <span class="cf">function</span>(v, l) {</span>
+<span id="cb23-22"><a href="neighborhood-sample.html#cb23-22" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb23-23"><a href="neighborhood-sample.html#cb23-23" tabindex="-1"></a>        <span class="fu">geom_sf</span>(<span class="at">data =</span> dta_re, <span class="at">fill =</span> <span class="st">&quot;#bbbbbb&quot;</span>) <span class="sc">+</span></span>
+<span id="cb23-24"><a href="neighborhood-sample.html#cb23-24" tabindex="-1"></a>        <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">filter</span>(dta_re, totpop <span class="sc">&gt;</span> <span class="dv">200</span>), <span class="fu">aes</span>(<span class="at">fill =</span> .data[[v]])) <span class="sc">+</span></span>
+<span id="cb23-25"><a href="neighborhood-sample.html#cb23-25" tabindex="-1"></a>        <span class="fu">geom_sf</span>(<span class="at">data =</span> dta_chpk, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;#dddddd&quot;</span>, <span class="at">linewidth =</span> .<span class="dv">35</span>) <span class="sc">+</span></span>
+<span id="cb23-26"><a href="neighborhood-sample.html#cb23-26" tabindex="-1"></a>        <span class="fu">geom_sf</span>(<span class="at">data =</span> pumas, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">linewidth =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb23-27"><a href="neighborhood-sample.html#cb23-27" tabindex="-1"></a>        <span class="fu">scale_fill_distiller</span>(</span>
+<span id="cb23-28"><a href="neighborhood-sample.html#cb23-28" tabindex="-1"></a>            <span class="at">palette =</span> <span class="st">&quot;Blues&quot;</span>, <span class="at">direction =</span> <span class="dv">1</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb23-29"><a href="neighborhood-sample.html#cb23-29" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb23-30"><a href="neighborhood-sample.html#cb23-30" tabindex="-1"></a>        <span class="fu">labs</span>(</span>
+<span id="cb23-31"><a href="neighborhood-sample.html#cb23-31" tabindex="-1"></a>            <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">&quot;Percent&quot;</span>, l)</span>
+<span id="cb23-32"><a href="neighborhood-sample.html#cb23-32" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb23-33"><a href="neighborhood-sample.html#cb23-33" tabindex="-1"></a>        theme_map</span>
+<span id="cb23-34"><a href="neighborhood-sample.html#cb23-34" tabindex="-1"></a>}</span>
+<span id="cb23-35"><a href="neighborhood-sample.html#cb23-35" tabindex="-1"></a></span>
+<span id="cb23-36"><a href="neighborhood-sample.html#cb23-36" tabindex="-1"></a>vars_re <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Black =</span> <span class="st">&quot;pnhb&quot;</span>, <span class="at">White =</span> <span class="st">&quot;pnhw&quot;</span>, <span class="at">Latinx =</span> <span class="st">&quot;phsp&quot;</span>)</span>
+<span id="cb23-37"><a href="neighborhood-sample.html#cb23-37" tabindex="-1"></a>plts_re <span class="ot">&lt;-</span> <span class="fu">map2</span>(vars_re, <span class="fu">names</span>(vars_re), plot_re)</span>
+<span id="cb23-38"><a href="neighborhood-sample.html#cb23-38" tabindex="-1"></a></span>
+<span id="cb23-39"><a href="neighborhood-sample.html#cb23-39" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
+<span id="cb23-40"><a href="neighborhood-sample.html#cb23-40" tabindex="-1"></a>    plts_re[[<span class="dv">1</span>]], plts_re[[<span class="dv">2</span>]], plts_re[[<span class="dv">3</span>]],</span>
+<span id="cb23-41"><a href="neighborhood-sample.html#cb23-41" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">1</span></span>
+<span id="cb23-42"><a href="neighborhood-sample.html#cb23-42" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="_bbxb-pilot-sample-design_files/figure-html/race-ethnicity-1.png" width="672" /></p>
+</div>
+<div id="poverty" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Poverty<a href="neighborhood-sample.html#poverty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="neighborhood-sample.html#cb24-1" tabindex="-1"></a>dta_pov <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb24-2"><a href="neighborhood-sample.html#cb24-2" tabindex="-1"></a>    <span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>,</span>
+<span id="cb24-3"><a href="neighborhood-sample.html#cb24-3" tabindex="-1"></a>    <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;B17001_001&quot;</span>, <span class="st">&quot;B17001_002&quot;</span>),</span>
+<span id="cb24-4"><a href="neighborhood-sample.html#cb24-4" tabindex="-1"></a>    <span class="at">output =</span> <span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb24-5"><a href="neighborhood-sample.html#cb24-5" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">&quot;MD&quot;</span>,</span>
+<span id="cb24-6"><a href="neighborhood-sample.html#cb24-6" tabindex="-1"></a>    <span class="at">county =</span> <span class="st">&quot;510&quot;</span>,</span>
+<span id="cb24-7"><a href="neighborhood-sample.html#cb24-7" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb24-8"><a href="neighborhood-sample.html#cb24-8" tabindex="-1"></a>    <span class="at">cache_table =</span> <span class="cn">TRUE</span></span>
+<span id="cb24-9"><a href="neighborhood-sample.html#cb24-9" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-10"><a href="neighborhood-sample.html#cb24-10" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb24-11"><a href="neighborhood-sample.html#cb24-11" tabindex="-1"></a>        <span class="at">totpop =</span> B17001_001E,</span>
+<span id="cb24-12"><a href="neighborhood-sample.html#cb24-12" tabindex="-1"></a>        <span class="at">ppov =</span> B17001_002E <span class="sc">/</span> totpop,</span>
+<span id="cb24-13"><a href="neighborhood-sample.html#cb24-13" tabindex="-1"></a>        <span class="at">ppovc =</span> <span class="fu">cut</span>(ppov, <span class="fu">seq</span>(<span class="dv">0</span>, .<span class="dv">4</span>, .<span class="dv">05</span>))</span>
+<span id="cb24-14"><a href="neighborhood-sample.html#cb24-14" tabindex="-1"></a>    )</span>
+<span id="cb24-15"><a href="neighborhood-sample.html#cb24-15" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="neighborhood-sample.html#cb24-16" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb24-17"><a href="neighborhood-sample.html#cb24-17" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> dta_pov, <span class="at">fill =</span> <span class="st">&quot;#bbbbbb&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-18"><a href="neighborhood-sample.html#cb24-18" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">filter</span>(dta_pov, totpop <span class="sc">&gt;</span> <span class="dv">200</span>), <span class="fu">aes</span>(<span class="at">fill =</span> ppov)) <span class="sc">+</span></span>
+<span id="cb24-19"><a href="neighborhood-sample.html#cb24-19" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> dta_chpk, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;#dddddd&quot;</span>, <span class="at">linewidth =</span> .<span class="dv">35</span>) <span class="sc">+</span></span>
+<span id="cb24-20"><a href="neighborhood-sample.html#cb24-20" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> pumas, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">linewidth =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb24-21"><a href="neighborhood-sample.html#cb24-21" tabindex="-1"></a>    <span class="fu">scale_fill_distiller</span>(</span>
+<span id="cb24-22"><a href="neighborhood-sample.html#cb24-22" tabindex="-1"></a>        <span class="at">palette =</span> <span class="st">&quot;Blues&quot;</span>, <span class="at">direction =</span> <span class="dv">1</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">6</span>),</span>
+<span id="cb24-23"><a href="neighborhood-sample.html#cb24-23" tabindex="-1"></a>        <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.6</span>, .<span class="dv">1</span>)</span>
+<span id="cb24-24"><a href="neighborhood-sample.html#cb24-24" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb24-25"><a href="neighborhood-sample.html#cb24-25" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb24-26"><a href="neighborhood-sample.html#cb24-26" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&quot;Percent poor&quot;</span>,</span>
+<span id="cb24-27"><a href="neighborhood-sample.html#cb24-27" tabindex="-1"></a>        <span class="at">fill =</span> <span class="cn">NULL</span></span>
+<span id="cb24-28"><a href="neighborhood-sample.html#cb24-28" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb24-29"><a href="neighborhood-sample.html#cb24-29" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb24-30"><a href="neighborhood-sample.html#cb24-30" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb24-31"><a href="neighborhood-sample.html#cb24-31" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb24-32"><a href="neighborhood-sample.html#cb24-32" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>, </span>
+<span id="cb24-33"><a href="neighborhood-sample.html#cb24-33" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-34"><a href="neighborhood-sample.html#cb24-34" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-35"><a href="neighborhood-sample.html#cb24-35" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb24-36"><a href="neighborhood-sample.html#cb24-36" tabindex="-1"></a>        <span class="at">legend.margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">unit =</span> <span class="st">&quot;pt&quot;</span>)</span>
+<span id="cb24-37"><a href="neighborhood-sample.html#cb24-37" tabindex="-1"></a>    )</span></code></pre></div>
+<p><img src="_bbxb-pilot-sample-design_files/figure-html/poverty-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="neighborhood-sample.html#cb25-1" tabindex="-1"></a><span class="co"># +</span></span>
+<span id="cb25-2"><a href="neighborhood-sample.html#cb25-2" tabindex="-1"></a><span class="co">#     theme(</span></span>
+<span id="cb25-3"><a href="neighborhood-sample.html#cb25-3" tabindex="-1"></a><span class="co">#         title = element_text(margin = margin(0, 0, 0, 0)),</span></span>
+<span id="cb25-4"><a href="neighborhood-sample.html#cb25-4" tabindex="-1"></a><span class="co">#         legend.position = &quot;top&quot;,</span></span>
+<span id="cb25-5"><a href="neighborhood-sample.html#cb25-5" tabindex="-1"></a><span class="co">#         legend.margin = margin(0, 0, 0, 0)</span></span>
+<span id="cb25-6"><a href="neighborhood-sample.html#cb25-6" tabindex="-1"></a><span class="co">#     )</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="neighborhood-sample.html#cb26-1" tabindex="-1"></a><span class="do">## Use mapview to look have tooltip reveal census tract number</span></span>
+<span id="cb26-2"><a href="neighborhood-sample.html#cb26-2" tabindex="-1"></a><span class="co"># library(mapview)</span></span>
+<span id="cb26-3"><a href="neighborhood-sample.html#cb26-3" tabindex="-1"></a><span class="co"># mapview(hu, zcol = &quot;vacrat&quot;, label = &quot;GEOID&quot;)</span></span>
+<span id="cb26-4"><a href="neighborhood-sample.html#cb26-4" tabindex="-1"></a><span class="co"># mapview(pumas, linewidth = 20, color = &quot;white&quot;) + mapview(dta_nhd, label = &quot;Name&quot;, alpha = .5) </span></span>
+<span id="cb26-5"><a href="neighborhood-sample.html#cb26-5" tabindex="-1"></a><span class="co"># mapview(filter(dta_nhd, Name %in% c(&quot;Oliver&quot;, &quot;Greenmount West&quot;))) </span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sample-of-street-locations-for-routing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+output_dir: "site"
+book_filename: "_bbxb-pilot-sample-design.Rmd"
+clean: 
+    - "_main.log"
+delete_merged_file: true
+rmd_files: 
+    - "index.Rmd"
+    - "sample-design.Rmd"
+    - "street-sample.Rmd"
+    

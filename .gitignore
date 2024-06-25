@@ -1,0 +1,20 @@
+# Binary files
+*.docx
+*.zip
+bbxb-discovery-project-narrative.pdf
+
+
+# Directories for internal use
+literature-reviews
+meetings
+_bbxb-pilot-sample-design_files
+
+# Output files 
+sample-design/out/*
+
+# R files
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+

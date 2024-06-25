@@ -1,0 +1,257 @@
+# Sample of Street Locations for Routing
+
+## Overview
+
+For each region comprised of the neighborhoods we selected, we will create sample street segments to observe. The plan will use the following steps:
+
+1. Select two roads classified as either primary or secondary on OpenStreetMap that are at least 1 mile long and survey the length of those streets (select points every 1/8th mile to put into route planning software)
+2. Select two points along each of those roads and select segments that intersect a 1/4 mile buffer of those 
+
+This plan gives us the ability to measure change over distance on major streets, a sense of differences among cross-streets that intersect those major streets, and small streets that cluster only among small streets. 
+
+## Obtain Road Data
+
+We download road data from OpenStreetMap and clip data to Baltimore (dataframe `dta_osmrd`). Set variable `use_osm_cache` to `TRUE` to use saved version of OSM data. If set to `FALSE`, or if the file does not exist, download the data and save it. 
+
+```{r strt-get-osm-data}
+library(osmdata)
+
+use_osm_cache <- TRUE
+f_osmrd <- "data/osm-roads.shp"
+
+strvals <- c(
+  "motorway", "primary", "secondary", "tertiary", "residential", "service",
+  "unclassified"
+)
+
+if(use_osm_cache == TRUE & file.exists(f_osmrd)) {
+  dta_osmrd <- st_read(f_osmrd) 
+} else {
+  ## Get bounding box of neighborhood data
+  bb <- dta_nhd %>% 
+    st_zm() %>% 
+    st_transform(4326) %>% 
+    st_bbox()
+  
+  ## Query OpenStreetMap data for streets
+  q <- opq(bbox = bb) %>% 
+    add_osm_feature(key = "highway", value = strvals) %>% 
+    osmdata_sf()
+  
+  ## Project streets and clip to neighborhood boundaries
+  dta_osmrd <- q$osm_lines %>% 
+    st_transform(st_crs(dta_nhd)) %>% 
+    st_filter(dta_nhd, .predicate = st_intersects) %>% 
+    select(osm_id, name, access, highway, lanes, maxspeed, oneway, surface)
+  
+  ## Save street network data
+  st_write(dta_osmrd, f_osmrd, append = FALSE)
+}
+
+dta_osmrd <- dta_osmrd %>% 
+  mutate(
+    highway = factor(highway, levels = strvals)
+  )
+
+## Plot street network
+ggplot(dta_osmrd) +
+  geom_sf(aes(color = highway, linewidth = highway)) +
+  scale_color_brewer(palette = "Pastel1") +
+  geom_sf(data = dta_smpreg, color = "#ff6e30", alpha = 0, linewidth = 1) +
+  theme_void() +
+  scale_linewidth_manual(values = seq(1, 0.05, -0.95/8)) +
+  labs(
+    title = "Map of streets by type"
+  )
+
+```
+
+We also create a set of streets clipped at the region boundaries so that the segments represent those completely within the regional boundaries. The data are saved in the object `dta_rdreg`.
+
+```{r strt-clip-roads}
+dta_rdreg <- dta_osmrd %>% 
+    st_intersection(dta_smpreg) 
+
+```
+
+## Select Primary/Secondary Roads in Sample Regions
+
+We want to select two roads classified as either primary or secondary roads that is at least a mile long in each of the sampled regions. To identify these roads, we need to dissolve segments on the same road into a single segment. Since a road may change classifications between primary and secondary, we create an indicator of whether each segment is primary or secondary. Then dissolve the streets based on that indicator and the name of the street. These are saved in the dataframe object `dta_rdmaj`.
+
+We then spatially intersect the road with to clip the segments to the region polygon boundaries. We then calculate the length of the dissolved segment and keep those longer than one mile. We then randomly sort those to create a random sample of streets in each region. These data are saved in `dta_rdmajsmp`.
+
+```{r strt-sample-major}
+set.seed(292126)
+dta_rdmajsmp <- dta_rdreg %>% 
+  mutate(
+    majrd = highway %in% c("primary", "secondary") 
+  ) %>% 
+  filter(majrd) %>% 
+  group_by(region, highway, name) %>% 
+  summarize(.groups = "keep") %>% 
+  ungroup() %>%
+  mutate(
+    rnd = runif(nrow(.)),
+    majrdid = row_number(),
+    len = as.numeric(st_length(geometry)),
+  ) %>% 
+  filter(len > (5280 * .75)) %>% 
+  group_by(region) %>% 
+  arrange(rnd) %>% 
+  mutate(
+    row = row_number(),
+    sampled = row_number() < 4
+  ) %>% 
+  ungroup()
+
+ggplot() +
+    geom_sf(data = dta_rdreg, color = "#eeeeee", linewidth = 0.25) +
+    geom_sf(data = dta_smpreg, color = "orange", linewidth = 1, alpha = 0) +
+    geom_sf(data = dta_rdmajsmp, aes(color = sampled), linewidth = 0.75) 
+
+
+mapview(dta_rdmajsmp, zcol = "sampled", label = "name") +
+    mapview(dta_smpreg, col.regions = "orange")
+
+```
+
+For sampled streets, we want to generate a list of points along the length of the segment every 300ft to create points for route planning software. The `dist_to_pct()` function calculates percentages along the segment to be sampled (with a random start buffer) of each segment at a distance to be specified. This is for each _portion_ of a segment (so points may be more densely sampled than 300ft). To avoid too much bunching, however, we remove segment pieces shorter than 150ft. Those segments and sample lengths are saved in the dataframe `dta_rdselect`.
+
+Next, we create the sample of locations at 300ft intervals along all segments and save into a dataframe called `dta_rdmajpts`. 
+
+```{r}
+dist_to_pct <- function(len, distance) {
+  buf <- runif(1L) * distance / len     # Percentage distance of random start
+  npt <- len %/% distance               # Maximum number of points on segment
+  
+  ## Sample point on line proportional to length if less than distance
+  if(npt == 0) {
+    if(runif(1L) < len / distance) return(runif(1L))
+    return(NA_real_)
+  }
+  
+  ## Otherwise, calculate percentage of segment length at which to create points
+  pct <- (c(0:(npt)) * distance) / len + buf
+  ret <- unlist(pct[pct <= 1])
+  ret
+}
+
+# dta_rdmajsmp <- dta_rdmajsmp %>% 
+#   mutate(
+#     len = as.numeric(st_length(geometry)),
+#     pts = map(len, ~dist_to_pct(.x, 300)),
+#     npts = unlist(map(pts, ~length(.x)))
+#   )
+
+dta_rdmajsmp <- dta_rdmajsmp %>% 
+  mutate(
+    len = as.numeric(st_length(geometry)),
+    pts = map(len, ~dist_to_pct(.x, 300)),
+    npts = unlist(map(pts, ~length(.x)))
+  )
+
+dta_rdselect <- dta_rdmajsmp %>% 
+  filter(sampled) %>% 
+  st_cast("LINESTRING") %>% 
+  mutate(
+    len = as.numeric(st_length(geometry)),
+    pts = map(len, ~dist_to_pct(.x, 300))
+  ) %>% 
+  filter(len >= 150)
+
+rdselectpt <- map2(
+  dta_rdselect$geometry,
+  dta_rdselect$pts,
+  ~st_line_sample(.x, sample = unlist(.y))
+) %>% 
+  map(~st_set_crs(.x, st_crs(dta_rdmajsmp))) %>% 
+  reduce(c)
+
+dta_rdmajpts <- dta_rdselect %>% 
+  select(region, name, majrdid) %>% 
+  st_drop_geometry() %>% 
+  st_set_geometry(rdselectpt) %>% 
+  st_cast("POINT")
+
+ggplot(dta_rdmajpts) +
+  geom_sf(size = 0.05) +
+  geom_sf(data = dta_bal, aes(), alpha = 0, color = "#aaaaaa") +
+  theme_void()
+
+```
+
+## Sample Streets within 1/4 Mile of Two Random Points on Major Streets
+
+Next, we sample two points along each of the sampled major roads. We then draw a 1/4 mile buffer around each of those points and obtain all minor streets within that buffer. We obtain the points at 5%, 50% and 95% of the length to input into the route-planning software. 
+
+```{r strt-two-points}
+randpt <- dta_rdmajpts %>% 
+  group_by(majrdid) %>% 
+  sample_n(2) 
+
+randbuf <- randpt %>% 
+  st_buffer(5280/4)
+
+dta_rdxsmp <- dta_osmrd %>%
+  st_filter(randbuf, join = st_intersects)
+
+rdxpts <- map2(
+  dta_rdxsmp$geometry,
+  rep(list(c(0.05, .5, 0.95)), nrow(dta_rdxsmp)),
+  ~st_line_sample(.x, sample = unlist(.y))
+) %>% 
+  map(~st_set_crs(.x, st_crs(dta_rdxsmp))) %>% 
+  reduce(c)
+
+dta_rdxpts <- dta_rdxsmp %>% 
+  st_drop_geometry() %>% 
+  st_set_geometry(rdxpts) %>% 
+  st_cast("POINT")
+
+ggplot() +
+  geom_sf(data = dta_smpreg, mapping = aes(), color = "orange", linewidth = 1) +
+  geom_sf(data = dta_rdmajpts, mapping = aes(), size = 0.05) +
+  geom_sf(data = randpt, mapping = aes(), size = 0.1, color = "red") +
+  geom_sf(data = randbuf, mapping = aes(), color = "red", alpha = 0) +
+  geom_sf(data = dta_rdxpts, mapping = aes(), color = "blue", size = 0.1) +
+  geom_sf(
+    data = dta_bal, mapping = aes(), color = "#aaaaaa", linewidth = 0.5,
+    alpha = 0
+  ) +
+  theme_void()
+```
+
+The map below provides a web interface to view the points sampled. 
+
+```{r strt-interactive}
+mapview(dta_rdxpts, col.region = "yellow") +
+  mapview(randpt, col.regions = "red") + 
+  mapview(dta_rdmajpts) +
+  mapview(dta_rdxsmp) 
+  
+
+```
+
+## Combine and Save Sample Segments and Coordinates
+
+Combine major streets and cross street samples into a single linestring spatial dataframe. Save this object, `dta_sampled`, to the file `out/sample-segments.rdata`.
+
+Export the coordinates for route planning along with their closest sample region to a comma separated values file, `out/sample-coordinates.csv`. 
+
+```{r strt-save}
+dta_sampled <- dta_rdmajsmp %>% 
+  filter(sampled) %>% 
+  bind_rows(dta_rdxsmp)
+save(dta_sampled, file = "out/sample-segments.rdata")
+
+dta_coords <-  c(dta_rdxpts$geometry, dta_rdmajpts$geometry) %>% 
+  st_sf() %>% 
+  mutate(
+    region = dta_smpreg$region[st_nearest_feature(., dta_smpreg)]
+  ) %>% 
+  st_transform("EPSG:4326") %>% 
+  bind_cols(st_coordinates(.)) %>% 
+  st_drop_geometry()
+
+write_csv(dta_coords, "out/sample-coordinates.csv")
+```

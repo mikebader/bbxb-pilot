@@ -1,0 +1,50 @@
+---
+title: "Baltimore Block-by-Block Pilot Sample Selection"
+author: "Mike Bader"
+date: "Compiled: `r format(Sys.Date(), '%B %d, %Y')`"
+site: bookdown::bookdown_site
+---
+
+```{r setup, include=FALSE}
+## Requires using development version of `sf` library:
+## install.packages('sf', repos = c('https://r-spatial.r-universe.dev'))
+
+Sys.setenv("PROJ_LIB"="") # Removes environment variable with PROJ being 
+                          # being disrupted by other programs
+                          # https://github.com/r-spatial/sf/issues/2298#issuecomment-1867563910
+
+# knitr::opts_chunk$set(echo=FALSE, warning=FALSE)
+
+```
+
+```{r libraries, message=FALSE}
+library(sf)         # Spatial library
+library(tidycensus) # Download Census data
+library(tigris)     # TIGER/Line geography
+library(mapview)
+library(ggpubr)     # Multiple plots
+library(GGally)     # Scatterplot matrix
+library(tidyverse)  
+
+theme_set(theme_minimal())
+
+theme_map <- theme_minimal() +
+        theme(
+            title = element_blank(),
+            legend.position = "bottom",
+            panel.grid = element_blank(),
+            axis.text = element_blank(),
+            plot.margin = margin(t = -2, b = -2),
+            legend.margin = margin(t = -5, b = -5),
+            # legend.text = element_blank(),
+            plot.title = element_text(
+                face = "bold",
+                size = 10
+            ),
+            legend.key.width = unit(2, "lines"),
+        )
+```
+
+# Overview
+
+Sampling plan for the pilot data acquisition of the Baltimore Block-by-Block project. The sample proceeded in two stages with a selection of neighborhood clusters in which to collect data based on maximizing variation in streetscapes and then selecting street segments to observe within those neighborhood clusters. 
