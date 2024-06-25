@@ -1,4 +1,4 @@
-output_dir: "site"
+output_dir: "../docs"
 book_filename: "_bbxb-pilot-sample-design.Rmd"
 clean: 
     - "_main.log"
