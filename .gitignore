@@ -7,7 +7,7 @@ bbxb-discovery-project-narrative.pdf
 # Directories for internal use
 literature-reviews
 meetings
-_bbxb-pilot-sample-design_files
+sample-design/_bbxb-pilot-sample-design_files
 
 # Output files 
 sample-design/out/*
