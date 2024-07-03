@@ -16,12 +16,11 @@ We download road data from OpenStreetMap and clip data to Baltimore (dataframe `
 ```{r strt-get-osm-data}
 library(osmdata)
 
-use_osm_cache <- TRUE
+use_osm_cache <- FALSE
 f_osmrd <- "data/osm-roads.shp"
 
 strvals <- c(
-  "motorway", "primary", "secondary", "tertiary", "residential", "service",
-  "unclassified"
+  "motorway", "primary", "secondary", "tertiary", "residential"
 )
 
 if(use_osm_cache == TRUE & file.exists(f_osmrd)) {
@@ -100,7 +99,8 @@ dta_rdmajsmp <- dta_rdreg %>%
   arrange(rnd) %>% 
   mutate(
     row = row_number(),
-    sampled = row_number() < 4
+    sampled = row_number() < 4,
+    rdtype = "major"
   ) %>% 
   ungroup()
 
@@ -168,7 +168,7 @@ rdselectpt <- map2(
   reduce(c)
 
 dta_rdmajpts <- dta_rdselect %>% 
-  select(region, name, majrdid) %>% 
+  select(region, name, majrdid, rdtype) %>% 
   st_drop_geometry() %>% 
   st_set_geometry(rdselectpt) %>% 
   st_cast("POINT")
@@ -182,7 +182,9 @@ ggplot(dta_rdmajpts) +
 
 ## Sample Streets within 1/4 Mile of Two Random Points on Major Streets
 
-Next, we sample two points along each of the sampled major roads. We then draw a 1/4 mile buffer around each of those points and obtain all minor streets within that buffer. We obtain the points at 5%, 50% and 95% of the length to input into the route-planning software. 
+Next, we sample two points along each of the sampled major roads. We then draw a 1/4 mile buffer around each of those points and obtain all minor roads within that buffer. Before doing so, we split lines into segments at intersections between roads and then gather those newly split segments that intersect the 1/4 mile buffer. 
+
+We then create a spatial data frame of points with the midpoint of each of those segments that we will use for route planning purposes. From this data frame, we eliminate all points along the sampled major roads. This is because we will observe the entire length within the region of those major roads. To accomplish this, we only save points that are not within a 50-foot buffer of the sampled major roads. The data of segment midpoints is saved to the file `out/sample-segment-midpoints.shp`.
 
 ```{r strt-two-points}
 randpt <- dta_rdmajpts %>% 
@@ -193,11 +195,12 @@ randbuf <- randpt %>%
   st_buffer(5280/4)
 
 dta_rdxsmp <- dta_osmrd %>%
-  st_filter(randbuf, join = st_intersects)
+  st_filter(randbuf, join = st_intersects) %>% 
+  mutate(rdtype = "minor")
 
 rdxpts <- map2(
   dta_rdxsmp$geometry,
-  rep(list(c(0.05, .5, 0.95)), nrow(dta_rdxsmp)),
+  rep(list(c(0.1, 0.9)), nrow(dta_rdxsmp)),
   ~st_line_sample(.x, sample = unlist(.y))
 ) %>% 
   map(~st_set_crs(.x, st_crs(dta_rdxsmp))) %>% 
@@ -206,14 +209,41 @@ rdxpts <- map2(
 dta_rdxpts <- dta_rdxsmp %>% 
   st_drop_geometry() %>% 
   st_set_geometry(rdxpts) %>% 
-  st_cast("POINT")
+  st_cast("POINT") 
+
+## Create buffer around major roads
+rdmajsmpbuf <- dta_rdmajsmp %>% 
+  filter(sampled) %>% 
+  st_buffer(50) 
+
+## Create segments split at intersections
+ixn <- st_collection_extract(st_intersection(dta_rdxsmp), "POINT")
+splitsegs <- lwgeom::st_split(dta_rdxsmp, ixn) %>% 
+  st_collection_extract("LINESTRING") %>% 
+  st_cast("LINESTRING")
+
+dta_midpts <- map2(
+  splitsegs$geometry,
+  rep(list(c(0.5)), nrow(splitsegs)),
+  ~st_line_sample(.x, sample = unlist(.y))
+) %>% 
+  map(~st_set_crs(.x, st_crs(splitsegs))) %>% 
+  reduce(c) %>% 
+  st_sf() %>% 
+  mutate(
+    inrdbuf = lengths(st_intersects(., rdmajsmpbuf)) > 0
+  ) %>% 
+  filter(!inrdbuf) %>% 
+  st_join(dta_smpreg, join = st_nearest_feature)
+
+st_write(dta_midpts, dsn = "out/sample-segment-midpoints.shp", append = FALSE)
 
 ggplot() +
   geom_sf(data = dta_smpreg, mapping = aes(), color = "orange", linewidth = 1) +
-  geom_sf(data = dta_rdmajpts, mapping = aes(), size = 0.05) +
+  # geom_sf(data = dta_rdmajpts, mapping = aes(), size = 0.05) +
   geom_sf(data = randpt, mapping = aes(), size = 0.1, color = "red") +
   geom_sf(data = randbuf, mapping = aes(), color = "red", alpha = 0) +
-  geom_sf(data = dta_rdxpts, mapping = aes(), color = "blue", size = 0.1) +
+  geom_sf(data = dta_midpts, mapping = aes(), color = "blue", size = 0.1) +
   geom_sf(
     data = dta_bal, mapping = aes(), color = "#aaaaaa", linewidth = 0.5,
     alpha = 0
@@ -224,26 +254,38 @@ ggplot() +
 The map below provides a web interface to view the points sampled. 
 
 ```{r strt-interactive}
-mapview(dta_rdxpts, col.region = "yellow") +
+mapview(dta_midpts, col.region = "yellow") +
   mapview(randpt, col.regions = "red") + 
-  mapview(dta_rdmajpts) +
-  mapview(dta_rdxsmp) 
+  # mapview(dta_rdmajpts) +
+  mapview(dta_rdxsmp, zcol = "highway") 
   
 
 ```
 
 ## Combine and Save Sample Segments and Coordinates
 
-Combine major streets and cross street samples into a single linestring spatial dataframe. Save this object, `dta_sampled`, to the file `out/sample-segments.rdata`.
+Combine major streets and cross street samples into a single linestring spatial dataframe. Save this object, `dta_sampled`, to the file `out/sample-segments.Rdata` and to a shapefile `out/sample-segments.shp`.
 
-Export the coordinates for route planning along with their closest sample region to a comma separated values file, `out/sample-coordinates.csv`. 
-
-```{r strt-save}
+```{r strt-save-segments}
 dta_sampled <- dta_rdmajsmp %>% 
   filter(sampled) %>% 
   bind_rows(dta_rdxsmp)
 save(dta_sampled, file = "out/sample-segments.rdata")
 
+dta_sampled %>% 
+  select(-pts) %>% 
+  st_write(dsn = "out/sample-segments.shp", append = FALSE)
+
+```
+
+
+
+Export the coordinates for route planning along with their closest sample region to a comma separated values file, `out/sample-coordinates.csv`. 
+
+
+
+
+```{r strt-points}
 dta_coords <-  c(dta_rdxpts$geometry, dta_rdmajpts$geometry) %>% 
   st_sf() %>% 
   mutate(
